@@ -1,4 +1,5 @@
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 @Entity
 public class Genero {
@@ -12,7 +13,9 @@ public class Genero {
             inverseJoinColumns = @JoinColumn(name="midia_id"))
     List<Midia> Midias;
     public void addMidia(Midia Midia){
+        Midias = new ArrayList<>();
         Midias.add(Midia);
+
     }
 
     public Genero(int ID, String nome) {
@@ -29,5 +32,18 @@ public class Genero {
 
     public String getNome() {
         return Nome;
+    }
+
+    @Override
+    public String toString() {
+        return Nome;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public List<Midia> getMidias() {
+        return Midias;
     }
 }

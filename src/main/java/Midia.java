@@ -7,12 +7,12 @@ public class Midia {
     @Column
     String Nome;
     @ManyToOne
-            @JoinColumn(name = "ID_genero")
+    @JoinColumn(name = "ID_genero")
     Genero Genero;
     @Column
     int AnoLancamento;
     @ManyToOne
-            @JoinColumn(name = "ID_diretor")
+    @JoinColumn(name = "ID_diretor")
     Diretor Diretor;
 
     public Midia(int ID, String nome, Genero genero, int anoLancamento, Diretor diretor) {
@@ -51,9 +51,16 @@ public class Midia {
     public String toString() {
         return "Midia{" +
                 "Nome='" + Nome + '\'' +
-                ", Genero=" + Genero +
+                ", Genero=" + Genero.toString() +
                 ", AnoLancamento=" + AnoLancamento +
-                ", Diretor=" + Diretor +
+                ", Diretor=" + Diretor.toString() +
                 '}';
+    }
+
+    public int getIDGenero() {
+        return Genero.getID();
+    }
+    public int getIDDiretor(){
+        return Diretor.getID();
     }
 }

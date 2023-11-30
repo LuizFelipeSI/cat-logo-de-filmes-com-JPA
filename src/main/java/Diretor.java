@@ -1,4 +1,5 @@
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -9,11 +10,12 @@ public class Diretor {
     String Nome;
 
     @OneToMany
-            @JoinTable(name="midia_diretor", joinColumns = @JoinColumn(name="diretor_id"),
+    @JoinTable(name="midia_diretor", joinColumns = @JoinColumn(name="diretor_id"),
             inverseJoinColumns = @JoinColumn(name="midia_id"))
     List<Midia> Midias;
 
     public void addMidia(Midia midia){
+        Midias = new ArrayList<>();
         Midias.add(midia);
     }
 
@@ -31,5 +33,19 @@ public class Diretor {
 
     public String getNome() {
         return Nome;
+    }
+
+    @Override
+    public String toString() {
+        return Nome;
+
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public List<Midia> getMidias() {
+        return Midias;
     }
 }

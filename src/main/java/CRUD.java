@@ -16,6 +16,10 @@ public class CRUD {
       Midia m1 =  new Midia(ID, nome, genero, anoLancamento, diretor);
       em.getTransaction().begin();
       em.persist(m1);
+      genero.addMidia(m1);
+      diretor.addMidia(m1);
+      em.merge(genero);
+      em.merge(diretor);
       em.getTransaction().commit();
       em.close();
   }
@@ -63,6 +67,19 @@ public class CRUD {
               String resposta = scan.nextLine();
 
               if (resposta.equals("y")) {
+                  Genero g1 =em.find(Genero.class,m1.getIDGenero());
+                  g1.getMidias().remove(m1);
+                  em.getTransaction().begin();
+                  em.merge(g1);
+                  em.getTransaction().commit();
+
+                  Diretor d1 = em.find(Diretor.class, m1.getIDDiretor());
+                  d1.getMidias().remove(m1);
+
+                  em.getTransaction().begin();
+                  em.merge(d1);
+                  em.getTransaction().commit();
+
                   em.getTransaction().begin();
                   em.remove(m1);
                   em.getTransaction().commit();
@@ -82,7 +99,6 @@ public class CRUD {
           }
       } finally {
           em.close();
-          emf.close();
       }
 
   }
@@ -150,7 +166,6 @@ public class CRUD {
             }
         } finally {
             em.close();
-            emf.close();
         }
     }
 
@@ -215,7 +230,6 @@ public class CRUD {
             }
         } finally {
             em.close();
-            emf.close();
         }
     }
 }
